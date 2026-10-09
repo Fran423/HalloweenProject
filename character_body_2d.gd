@@ -15,7 +15,7 @@ extends CharacterBody2D
 @export var leap_strength : float
 @export var coyote_max_time : float
 @export var taunt_time : float
-
+var holaaaaaaaaaaaaaaaacaracola
 
 @export_category('Cooldowns')
 @export var taunt_cooldown : float
