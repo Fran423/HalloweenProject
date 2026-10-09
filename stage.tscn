@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bgeugg16n54ot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1kum"]
+size = Vector2(784, 277)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6eo5e"]
+size = Vector2(366, 18)
+
+[node name="Stage" type="Node2D" unique_id=506613570]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1836850712 groups=["map"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=274210309]
+position = Vector2(576, 626.5)
+shape = SubResource("RectangleShape2D_x1kum")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=961324895 groups=["map"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=758749206]
+position = Vector2(576, 352)
+shape = SubResource("RectangleShape2D_6eo5e")
+one_way_collision = true

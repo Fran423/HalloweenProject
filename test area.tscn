@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cyvssn6nunlv6"]
+
+[ext_resource type="PackedScene" uid="uid://qbc78itl6n37" path="res://character_body_2d.tscn" id="1_ock0o"]
+[ext_resource type="Script" uid="uid://dayov382bwnjl" path="res://test_area.gd" id="1_xv1mk"]
+[ext_resource type="PackedScene" uid="uid://bgeugg16n54ot" path="res://stage.tscn" id="2_kpviu"]
+[ext_resource type="Script" uid="uid://l0keoweq5cc2" path="res://area_2d.gd" id="2_wosjt"]
+[ext_resource type="Script" uid="uid://deesrq56fwuj3" path="res://camera.gd" id="3_16h0e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d1wgt"]
+radius = 25.298222
+
+[node name="Node2D" type="Node2D" unique_id=1381996803 node_paths=PackedStringArray("players")]
+process_mode = 3
+script = ExtResource("1_xv1mk")
+players = [NodePath("CharacterBody2D")]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1371484782]
+process_mode = 1
+position = Vector2(896, 360)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_wosjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=706603187]
+process_mode = 1
+shape = SubResource("CircleShape2D_d1wgt")
+
+[node name="Stage" parent="." unique_id=506613570 instance=ExtResource("2_kpviu")]
+process_mode = 1
+
+[node name="CharacterBody2D" parent="." unique_id=521216523 instance=ExtResource("1_ock0o")]
+process_mode = 1
+position = Vector2(856, 320)
+dead_zone = 0.2
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1252666454 node_paths=PackedStringArray("objectives")]
+position = Vector2(576, 324)
+limit_left = -256
+limit_top = -100
+limit_right = 1408
+limit_bottom = 700
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("3_16h0e")
+objectives = [NodePath("../CharacterBody2D")]
+min_zoom = 0.7
+shake_fade_speed = 200.0
+
+[connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
