@@ -15,7 +15,6 @@ extends CharacterBody2D
 @export var leap_strength : float
 @export var coyote_max_time : float
 @export var taunt_time : float
-var holaaaaaaaaaaaaaaaacaracola
 
 @export_category('Cooldowns')
 @export var taunt_cooldown : float
@@ -38,7 +37,9 @@ func _physics_process(delta: float) -> void:
 	manage_movement(delta)
 	vel = velocity
 	if taunt_time_left <= 0:
-		move_and_slide()
+		if life > 0:
+			move_and_slide()
+		
 	else:
 		taunt_time_left -= delta
 	if cooldown_time > 0:
@@ -76,6 +77,18 @@ func hurt(damage:float, dir:Vector2, strength:float):
 	launch(dir,strength)
 	life -= damage
 	$Label.text = str(life)
+	if life <= 0:
+		die(dir)
+
+func die(dir : Vector2 = Vector2.ZERO):
+	$DeathParticles.direction = dir
+	$DeathParticles.global_position = global_position
+	$DeathParticles.emitting = true
+	life = 0
+	await get_tree().create_timer(0.5,false).timeout
+	$DeathParticles2.direction = dir
+	$DeathParticles2.global_position = global_position
+	$DeathParticles2.emitting = true
 	
 func leap():
 	if ($LeapRight2.is_colliding() or $LeapLeft2.is_colliding()) and (!$LeapRight.is_colliding() and !$LeapLeft.is_colliding()):
@@ -107,7 +120,7 @@ func manage_movement(delta):
 				velocity += get_gravity()*delta
 
 func _input(event: InputEvent) -> void:
-	if knocked_time <= 0 and taunt_time_left <= 0:
+	if knocked_time <= 0 and taunt_time_left <= 0 and life > 0:
 		if event.is_action_pressed("Jump"):
 			jump()
 		if cooldown_time <= 0:
