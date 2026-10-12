@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://ceeiyj6nga5ip"]
+
+[ext_resource type="Script" uid="uid://djxs5uw2tb1ix" path="res://character_selection.gd" id="1_7ylc8"]
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="2_ysev7"]
+
+[node name="CharacterSelection" type="Control" unique_id=926033884]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ylc8")
+picker_speed = 500.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=792690117]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.0
+offset_top = -96.0
+offset_right = 271.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Character1" type="RichTextLabel" parent="HBoxContainer" unique_id=1832439362]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Slenderman"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Character2" type="RichTextLabel" parent="HBoxContainer" unique_id=1474689410]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Jeff the Killer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Character3" type="RichTextLabel" parent="HBoxContainer" unique_id=1381254884]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cartoon Cat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Character4" type="RichTextLabel" parent="HBoxContainer" unique_id=526821050]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Princess"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=2067198247]
+position = Vector2(576, 320)
+motion_mode = 1
+
+[node name="Sprite2" type="Sprite2D" parent="Player" unique_id=2097483953]
+modulate = Color(1, 0, 1, 1)
+top_level = true
+position = Vector2(576, 320)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_ysev7")
+
+[node name="Sprite" type="Sprite2D" parent="Player" unique_id=1886123336]
+position = Vector2(7.6293945e-06, 7.6293945e-06)
+scale = Vector2(0.25000012, 0.24999988)
+texture = ExtResource("2_ysev7")
+
+[node name="Button" type="Button" parent="." unique_id=1915963805]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 456.0
+offset_right = 856.0
+offset_bottom = 552.0
+disabled = true
+text = "start"
+
+[node name="Players" type="Control" parent="." unique_id=331460792]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player1" type="Label" parent="Players" unique_id=1926545317]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 256.0
+offset_bottom = 192.0
+text = "character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2" type="Label" parent="Players" unique_id=1931674940]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 128.0
+offset_right = 512.0
+offset_bottom = 192.0
+text = "character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player3" type="Label" parent="Players" unique_id=560307858]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 128.0
+offset_right = 768.0
+offset_bottom = 192.0
+text = "character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player4" type="Label" parent="Players" unique_id=770966949]
+layout_mode = 0
+offset_left = 896.0
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = 192.0
+text = "character"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -26,8 +26,10 @@ var cooldown_time : float = 0
 var coyote : float = 0
 var vel : Vector2
 var life : float
+var lives : int = 3
 var stage_limits : Array #[left, up, right, down]
-signal hit_taken(damage,dir,strength,shake_strength)
+signal hit_taken(damage,dir,strength)
+signal dead
 
 func _ready() -> void:
 	$Label.text = str(max_life)
@@ -81,14 +83,30 @@ func hurt(damage:float, dir:Vector2, strength:float):
 		die(dir)
 
 func die(dir : Vector2 = Vector2.ZERO):
+	dead.emit(self)
+	$Hurtbox.set_deferred('monitorable',false)
 	$DeathParticles.direction = dir
 	$DeathParticles.global_position = global_position
 	$DeathParticles.emitting = true
 	life = 0
-	await get_tree().create_timer(0.5,false).timeout
-	$DeathParticles2.direction = dir
-	$DeathParticles2.global_position = global_position
-	$DeathParticles2.emitting = true
+	lives -= 1
+	if lives > 0:
+		await get_tree().create_timer(1,false).timeout
+		revive()
+	else:
+		Main.player_died(self)
+		await $DeathParticles.finished
+		queue_free()
+
+func revive():
+	create_tween().tween_property(self,'global_position',Vector2(576,128),1)
+	await get_tree().create_timer(2,false).timeout
+	life = max_life
+	$Hurtbox.set_deferred('monitorable',true)
+	
+	velocity = Vector2(0,-300)
+	$Label.text = str(life)
+
 	
 func leap():
 	if ($LeapRight2.is_colliding() or $LeapLeft2.is_colliding()) and (!$LeapRight.is_colliding() and !$LeapLeft.is_colliding()):
