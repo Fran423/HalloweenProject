@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://l0keoweq5cc2" path="res://area_2d.gd" id="2_036b0"]
 [ext_resource type="PackedScene" uid="uid://bgeugg16n54ot" path="res://stage.tscn" id="3_dwbse"]
 [ext_resource type="Script" uid="uid://deesrq56fwuj3" path="res://camera.gd" id="4_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="5_036b0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d1wgt"]
 radius = 25.298222
@@ -60,6 +61,11 @@ position = Vector2(832, 448)
 
 [node name="Player4" type="Marker2D" parent="SubViewport/SpawnPoints" unique_id=1148864977]
 position = Vector2(576, 320)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport" unique_id=1517101857]
+position = Vector2(896, 360)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_036b0")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1136766896]
 offset_right = 1152.0

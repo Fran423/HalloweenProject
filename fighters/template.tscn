@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://blegmw2pgff8v" path="res://fighters/template.gd" id="1_gxcbt"]
 [ext_resource type="Texture2D" uid="uid://cyftncparj6jf" path="res://taunt.png" id="2_lg4l6"]
 [ext_resource type="AudioStream" uid="uid://cwbpgiwlj10oh" path="res://fighters/sfx_taunt.mp3" id="3_4i8d6"]
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="4_lg4l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ij6vw"]
 
@@ -123,5 +124,9 @@ angle_max = 720.0
 scale_amount_min = 15.0
 scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_ghijl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
+scale = Vector2(0.12499999, 0.12499999)
+texture = ExtResource("4_lg4l6")
 
 [connection signal="body_entered" from="CollisionChecker" to="." method="_on_collision_checker_body_entered"]
