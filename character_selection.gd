@@ -16,10 +16,10 @@ func _ready() -> void:
 			controllers.append(joypads[i])
 	print('initial controllers:',controllers)
 	for i in range(controllers.size()):
-		var picker = picker_template
-		picker.name = str(picker.name,i+1)
+		var picker = picker_template.duplicate()
+		var picker_data = {'cursor' = picker,'controller_id' = controllers[i],'player_number' = i+1,'selection' = null,'marked' = false}
 		add_child(picker)
-		pickers.append({'cursor' = picker,'controller_id' = controllers[i],'player_number' = i+1,'selection' = null,'marked' = false})
+		pickers.append(picker_data)
 		
 func _process(delta: float) -> void:
 	for i in pickers:
@@ -61,16 +61,29 @@ func change_selection(picker):
 			character = 'cartoon cat'
 		4:
 			character = 'princess'
-	$Players.get_node(str(picker['cursor'].name)).text = character
+	$Players.get_node(str('Player',picker['player_number'])).text = character
 	
 func _input(event: InputEvent) -> void:
-	if event is InputEventJoypadMotion or event is InputEventJoypadButton:
+	if event.is_action_pressed("ui_accept"):
+		for picker in pickers:
+			if picker['controller_id'] == event.device:
+				picker['marked'] = !picker['marked']
+				break
+	if (event is InputEventJoypadMotion or event is InputEventJoypadButton) and pickers.size() < 4:
 		for picker in pickers:
 			if event.device == picker['controller_id']:
 				return
-		print('detected new joypad:',event.device,' Total:',controllers)
-		var picker = picker_template
+
+		var picker = picker_template.duplicate()
 		picker.global_position = Vector2(576,320)
 		add_child(picker)
-		
-		pickers.append({'cursor' = picker,'controller_id' = event.device,'player_number' = pickers.size()+1,'selection' = null,'marked' = false})
+		var picker_data = {'cursor' = picker,'controller_id' = event.device,'player_number' = null,'selection' = null,'marked' = false}
+		picker_data['player_number'] = pickers.size()+1
+		for i in pickers.size():
+			if pickers[i]['player_number'] != i+1:
+				picker_data['player_number'] = i+1
+				break
+		pickers.append(picker_data)
+		controllers.append(event.device)
+		print('detected new joypad:',event.device,' Total:',controllers)
+	

@@ -1,6 +1,6 @@
 extends Node
 
-var players : Array = [0,0]
+var players : Array = [0]
 var controllers : Array
 
 func player_died(player):
