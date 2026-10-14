@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://qbc78itl6n37"]
+[gd_scene format=3 uid="uid://dkxdygpk0mtob"]
 
-[ext_resource type="Script" uid="uid://blegmw2pgff8v" path="res://fighters/template.gd" id="1_gxcbt"]
-[ext_resource type="Texture2D" uid="uid://cyftncparj6jf" path="res://taunt.png" id="2_lg4l6"]
-[ext_resource type="AudioStream" uid="uid://cwbpgiwlj10oh" path="res://fighters/sfx_taunt.mp3" id="3_4i8d6"]
-[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="4_lg4l6"]
+[ext_resource type="Script" uid="uid://blegmw2pgff8v" path="res://fighters/template/template.gd" id="1_ttdxe"]
+[ext_resource type="Texture2D" uid="uid://cyftncparj6jf" path="res://taunt.png" id="2_dsf81"]
+[ext_resource type="AudioStream" uid="uid://cwbpgiwlj10oh" path="res://fighters/sfx_taunt.mp3" id="3_itr2r"]
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="4_gctrk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ij6vw"]
 
@@ -15,7 +15,7 @@ size = Vector2(32, 33)
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_44cfe"]
 random_pitch = 1.122462
 streams_count = 1
-stream_0/stream = ExtResource("3_4i8d6")
+stream_0/stream = ExtResource("3_itr2r")
 
 [sub_resource type="Animation" id="Animation_ghijl"]
 length = 0.001
@@ -31,7 +31,7 @@ point_count = 2
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1174658088]
 collision_layer = 0
-script = ExtResource("1_gxcbt")
+script = ExtResource("1_ttdxe")
 jump_force = 400.0
 jump_max_height = 17.0
 num_of_extra_jumps = 1
@@ -48,7 +48,7 @@ taunt_cooldown = 0.5
 
 [node name="Taunt" type="Sprite2D" parent="." unique_id=917404229]
 visible = false
-texture = ExtResource("2_lg4l6")
+texture = ExtResource("2_dsf81")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363432200]
 shape = SubResource("RectangleShape2D_ij6vw")
@@ -127,6 +127,6 @@ scale_amount_curve = SubResource("Curve_ghijl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
 scale = Vector2(0.12499999, 0.12499999)
-texture = ExtResource("4_lg4l6")
+texture = ExtResource("4_gctrk")
 
 [connection signal="body_entered" from="CollisionChecker" to="." method="_on_collision_checker_body_entered"]

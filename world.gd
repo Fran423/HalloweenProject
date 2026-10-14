@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var players: Array[CharacterBody2D]
-var player_instance_guide : Array = ["res://fighters/template.tscn"]
+var player_instance_guide : Array = ["uid://qbc78itl6n37","uid://qbc78itl6n37","uid://qbc78itl6n37","uid://dkxdygpk0mtob","uid://qbc78itl6n37"]
 
 func _ready() -> void:
 	for i in players:
