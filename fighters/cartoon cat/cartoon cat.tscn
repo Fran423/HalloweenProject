@@ -1,0 +1,355 @@
+[gd_scene format=3 uid="uid://dkxdygpk0mtob"]
+
+[ext_resource type="Script" uid="uid://2ulm8sgqx81o" path="res://fighters/cartoon cat/cartoon cat.gd" id="1_ieru1"]
+[ext_resource type="PackedScene" uid="uid://c42p7jmsrbqp3" path="res://fighters/cartoon cat/baseball.tscn" id="2_4a57s"]
+[ext_resource type="Texture2D" uid="uid://cyftncparj6jf" path="res://taunt.png" id="2_7q5p3"]
+[ext_resource type="AudioStream" uid="uid://cwbpgiwlj10oh" path="res://fighters/sfx_taunt.mp3" id="3_4a57s"]
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="4_3sw6t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij6vw"]
+size = Vector2(20, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f50pn"]
+size = Vector2(18, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghijl"]
+size = Vector2(20, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ieru1"]
+radius = 19.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3sw6t"]
+radius = 18.0
+height = 60.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7q5p3"]
+radius = 7.0
+height = 54.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4a57s"]
+radius = 17.0
+height = 310.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_44cfe"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("3_4a57s")
+
+[sub_resource type="Animation" id="Animation_ieru1"]
+resource_name = "Neutral"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NeutralHitbox/Neutral:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7q5p3"]
+resource_name = "Neutral_end"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NeutralHitbox/Neutral:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"bat_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ghijl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NeutralHitbox/Neutral:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3sw6t"]
+resource_name = "Upper"
+
+[sub_resource type="Animation" id="Animation_4a57s"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44cfe"]
+_data = {
+&"Neutral": SubResource("Animation_ieru1"),
+&"Neutral_end": SubResource("Animation_7q5p3"),
+&"RESET": SubResource("Animation_ghijl"),
+&"Upper": SubResource("Animation_3sw6t"),
+&"idle": SubResource("Animation_4a57s")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7q5p3"]
+animation = &"Neutral"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3sw6t"]
+animation = &"Neutral_end"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hd07e"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4a57s"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2roo"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ljrr3"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7q5p3"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3sw6t"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3sw6t"]
+states/Neutral/node = SubResource("AnimationNodeAnimation_7q5p3")
+states/Neutral/position = Vector2(321, 197)
+states/Neutral_end/node = SubResource("AnimationNodeAnimation_3sw6t")
+states/Neutral_end/position = Vector2(461, 197)
+states/idle/node = SubResource("AnimationNodeAnimation_hd07e")
+states/idle/position = Vector2(522, 84)
+transitions = ["Start", "Neutral", SubResource("AnimationNodeStateMachineTransition_4a57s"), "idle", "Neutral", SubResource("AnimationNodeStateMachineTransition_e2roo"), "Neutral_end", "idle", SubResource("AnimationNodeStateMachineTransition_ljrr3"), "Neutral", "Neutral_end", SubResource("AnimationNodeStateMachineTransition_7q5p3"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_3sw6t")]
+
+[sub_resource type="Curve" id="Curve_ghijl"]
+_data = [Vector2(0.57446814, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.42696637), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7q5p3"]
+_data = [Vector2(0.6170213, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.3820225), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="CartoonCat" type="CharacterBody2D" unique_id=1174658088]
+collision_layer = 0
+script = ExtResource("1_ieru1")
+jump_force = 400.0
+jump_max_height = 17.0
+num_of_extra_jumps = 1
+side_speed = 400.0
+accel = 10.0
+max_fall_speed = 500.0
+weight = 50.0
+max_life = 100.0
+dead_zone = 0.4
+leap_strength = 500.0
+coyote_max_time = 0.1
+taunt_time = 0.1
+taunt_cooldown = 0.5
+baseball = ExtResource("2_4a57s")
+ball_speed = -500.0
+bat_range = 38.0
+bat_speed = 700.0
+home_run_range = 18.0
+home_run_speed = 1000.0
+bat_strength = 100.0
+helicopter_damage = 1.0
+helicopter_strength = 50.0
+helicopter_time = 1.2
+helicopter_max_speed = 300.0
+helicopter_accel = 100.0
+charging_time = 0.8
+charge_damage = 7.0
+charge_launch = 75.0
+charge_speed = 700.0
+tail_windup = 0.5
+tail_damage = 5.0
+tail_strength = 100.0
+tail_power = 300.0
+
+[node name="Taunt" type="Sprite2D" parent="." unique_id=917404229]
+visible = false
+texture = ExtResource("2_7q5p3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363432200]
+shape = SubResource("RectangleShape2D_ij6vw")
+
+[node name="CollisionChecker" type="Area2D" parent="." unique_id=1461464684]
+collision_layer = 0
+
+[node name="Area2D" type="CollisionShape2D" parent="CollisionChecker" unique_id=2087594262]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_f50pn")
+
+[node name="LeapRight" type="RayCast2D" parent="." unique_id=724578149]
+visible = false
+position = Vector2(0, -27)
+target_position = Vector2(30, 0)
+
+[node name="LeapLeft" type="RayCast2D" parent="." unique_id=1078054236]
+visible = false
+position = Vector2(0, -27)
+target_position = Vector2(-30, 0)
+
+[node name="LeapRight2" type="RayCast2D" parent="." unique_id=1815585336]
+visible = false
+target_position = Vector2(30, 0)
+
+[node name="LeapLeft2" type="RayCast2D" parent="." unique_id=926273475]
+visible = false
+target_position = Vector2(-30, 0)
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1693145375]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=955221725]
+shape = SubResource("RectangleShape2D_ghijl")
+
+[node name="NeutralHitbox" type="Area2D" parent="." unique_id=1917173390]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="Neutral" type="CollisionShape2D" parent="NeutralHitbox" unique_id=684899999]
+position = Vector2(29, 0)
+shape = SubResource("CircleShape2D_ieru1")
+disabled = true
+
+[node name="SideHitbox" type="Area2D" parent="." unique_id=271489752]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="Side" type="CollisionShape2D" parent="SideHitbox" unique_id=74763032]
+position = Vector2(16, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_3sw6t")
+
+[node name="UpperHitbox" type="Area2D" parent="." unique_id=844185113]
+position = Vector2(0, -3)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Upper" type="CollisionShape2D" parent="UpperHitbox" unique_id=1786075309]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7q5p3")
+
+[node name="DownHitbox" type="Area2D" parent="." unique_id=1036813480]
+visible = false
+position = Vector2(0, -3)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Down" type="CollisionShape2D" parent="DownHitbox" unique_id=1084969415]
+position = Vector2(0, 185)
+shape = SubResource("CapsuleShape2D_4a57s")
+
+[node name="TauntSFX" type="AudioStreamPlayer2D" parent="." unique_id=562863612]
+stream = SubResource("AudioStreamRandomizer_44cfe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=284373439]
+libraries/ = SubResource("AnimationLibrary_44cfe")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=16679294]
+tree_root = SubResource("AnimationNodeStateMachine_3sw6t")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Label" type="Label" parent="." unique_id=382649965]
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 16.0
+offset_bottom = -25.0
+text = "100"
+horizontal_alignment = 1
+
+[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=1913102228]
+top_level = true
+emitting = false
+amount = 120
+lifetime = 1.3
+one_shot = true
+speed_scale = 1.4
+explosiveness = 1.0
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 32.0
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 900.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+linear_accel_min = -450.0
+linear_accel_max = -450.0
+angle_max = 720.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_ghijl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
+scale = Vector2(0.12499999, 0.12499999)
+texture = ExtResource("4_3sw6t")
+
+[node name="Charge" type="CPUParticles2D" parent="." unique_id=411662131]
+top_level = true
+position = Vector2(0, 18)
+emitting = false
+amount = 20
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.5
+direction = Vector2(1, -0.2)
+spread = 24.95
+gravity = Vector2(0, -50)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_max = 720.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_7q5p3")
+
+[node name="Helicopter" type="CPUParticles2D" parent="." unique_id=1400128548]
+position = Vector2(0, -13)
+emitting = false
+amount = 20
+speed_scale = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(26.945, 1)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_max = 720.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_7q5p3")
+
+[connection signal="body_entered" from="CollisionChecker" to="." method="_on_collision_checker_body_entered"]

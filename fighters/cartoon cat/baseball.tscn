@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://c42p7jmsrbqp3"]
+
+[ext_resource type="Script" uid="uid://cdvf05wd0xf6e" path="res://fighters/cartoon cat/baseball.gd" id="1_gxfny"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2pa4y"]
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2pa4y"]
+radius = 8.246211
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxfny"]
+radius = 8.246211
+
+[sub_resource type="Curve" id="Curve_gxfny"]
+_data = [Vector2(0.53723407, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.13483155), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Baseball" type="RigidBody2D" unique_id=1392460271]
+top_level = true
+collision_layer = 0
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_2pa4y")
+gravity_scale = 0.7
+script = ExtResource("1_gxfny")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=889027584]
+shape = SubResource("CircleShape2D_2pa4y")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1157617519]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox" unique_id=1506406899]
+shape = SubResource("CircleShape2D_gxfny")
+
+[node name="Lifetime" type="Timer" parent="." unique_id=1211469065]
+wait_time = 3.0
+autostart = true
+
+[node name="Bat" type="CPUParticles2D" parent="." unique_id=1046152114]
+top_level = true
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+lifetime_randomness = 0.5
+gravity = Vector2(0, 25)
+initial_velocity_min = 25.0
+initial_velocity_max = 75.0
+angle_max = 720.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_gxfny")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

@@ -1,7 +1,7 @@
 extends Node
 
-var players : Array = [0]
-var controllers : Array
+var players : Array = [3,0]
+var controllers : Array = [0,1]
 
 func player_died(player):
 	Engine.time_scale = 0.1

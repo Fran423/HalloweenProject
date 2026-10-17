@@ -75,6 +75,8 @@ func _input(event: InputEvent) -> void:
 				start_button(marks_check())
 				break
 
+
+
 func device_connected(device, connected):
 	if connected and pickers.size() < 4:
 		if device in controllers:
@@ -134,4 +136,6 @@ func _on_start_time_timeout() -> void:
 		else:
 			players.append(picker['selection'])
 	Main.players = players
-	print(Main.players)
+	Main.controllers = controllers
+	get_tree().change_scene_to_file('uid://cyvssn6nunlv6')
+	print(Main.players,Main.controllers)

@@ -37,7 +37,7 @@ process_mode = 1
 [node name="Camera" type="Camera2D" parent="SubViewport" unique_id=1252666454]
 position = Vector2(576, 324)
 limit_left = -256
-limit_top = -100
+limit_top = -200
 limit_right = 1408
 limit_bottom = 700
 limit_smoothed = true

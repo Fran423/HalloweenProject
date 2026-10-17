@@ -19,10 +19,17 @@ extends CharacterBody2D
 @export_category('Cooldowns')
 @export var taunt_cooldown : float
 
+
 var jumps_left : int = 0
+var player_num : int
+var controller : int
 var knocked_time : float = 0
+var freefall : bool = false
+@onready var playback : AnimationNodeStateMachinePlayback = $AnimationTree.get('parameters/playback')
 var taunt_time_left : float = 0
 var cooldown_time : float = 0
+var move_weight : float = 0
+var can_move : bool = true
 var coyote : float = 0
 var vel : Vector2
 var life : float
@@ -122,28 +129,33 @@ func manage_movement(delta):
 	if knocked_time <= 0 and taunt_time_left <= 0:
 		leap()
 		var dir : float = 0
-		if abs(Input.get_axis('ui_left','ui_right')) > dead_zone:
-			dir = Input.get_axis('ui_left','ui_right')
+		if abs(Input.get_joy_axis(Main.controllers[player_num-1],JOY_AXIS_LEFT_X)) > dead_zone:
+			dir = Input.get_joy_axis(Main.controllers[player_num-1],JOY_AXIS_LEFT_X)
 		if !is_on_floor():
 			if (velocity + get_gravity()*delta).y < max_fall_speed:
 				velocity += get_gravity()*delta
-			if Input.is_action_just_pressed('ui_down'):
-				velocity.y = max_fall_speed
+			if Input.get_joy_axis(controller,JOY_AXIS_LEFT_Y) > 0.5:
+				velocity.y = max_fall_speed + 100
 			if coyote > 0:
 				coyote -= delta
 		velocity.x = lerp(velocity.x,dir*side_speed,delta*accel)
+		if round(dir) != 0:
+			$Hitbox.scale.x = round(dir)
 	elif knocked_time > 0:
 		if !is_on_floor():
 			if (velocity + get_gravity()*delta).y < max_fall_speed:
 				velocity += get_gravity()*delta
 
 func _input(event: InputEvent) -> void:
-	if knocked_time <= 0 and taunt_time_left <= 0 and life > 0:
-		if event.is_action_pressed("Jump"):
-			jump()
-		if cooldown_time <= 0:
-			if event.is_action_pressed('Taunt'):
-				taunt()
+	if event.device == Main.controllers[player_num-1]:
+		if knocked_time <= 0 and taunt_time_left <= 0 and life > 0:
+			if event.is_action_pressed("Jump"):
+				jump()
+			if cooldown_time <= 0:
+				if event.is_action_pressed('Taunt'):
+					taunt()
+
+
 
 func reboot():
 	jumps_left = num_of_extra_jumps

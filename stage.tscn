@@ -17,9 +17,9 @@ position = Vector2(576, 756)
 shape = SubResource("RectangleShape2D_x1kum")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=961324895 groups=["map"]]
+position = Vector2(576, 320)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=758749206]
-position = Vector2(576, 352)
 shape = SubResource("RectangleShape2D_6eo5e")
 one_way_collision = true
 
@@ -29,6 +29,6 @@ scale = Vector2(6.125, 4.1875)
 texture = ExtResource("1_6eo5e")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1137014000]
-position = Vector2(576, 352)
+position = Vector2(576, 320)
 scale = Vector2(2.8750002, 0.12499988)
 texture = ExtResource("1_6eo5e")

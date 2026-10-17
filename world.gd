@@ -13,12 +13,14 @@ func _ready() -> void:
 		player.global_position = point
 		$SubViewport.add_child(player)
 		players.append(player)
+		player.player_num = i+1
+		player.controller = Main.controllers[i]
 		$SubViewport/Camera.objectives.append(player)
 
 func _process(delta: float) -> void:
 	for player in players:
 		if player != null:
-			if player.global_position.y > 832 or player.global_position.x < -512 or player.global_position.x > 1664:
+			if player.global_position.y > 896 or player.global_position.x < -512 or player.global_position.x > 1664:
 				if player.life > 0:
 					var direction = player.global_position.direction_to(Vector2(576,320))
 					player.die(direction)

@@ -1,0 +1,155 @@
+[gd_scene format=3 uid="uid://8hsq7d24hak3"]
+
+[ext_resource type="Script" uid="uid://2i8vsqfhwgol" path="res://fighters/slenderman/slenderman.gd" id="1_7g0fu"]
+[ext_resource type="Texture2D" uid="uid://cyftncparj6jf" path="res://taunt.png" id="2_x3ljo"]
+[ext_resource type="AudioStream" uid="uid://cwbpgiwlj10oh" path="res://fighters/sfx_taunt.mp3" id="3_4osjm"]
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="4_8phh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f50pn"]
+size = Vector2(32, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adt42"]
+size = Vector2(20, 38)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_44cfe"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("3_4osjm")
+
+[sub_resource type="Animation" id="Animation_ghijl"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44cfe"]
+_data = {
+&"RESET": SubResource("Animation_ghijl")
+}
+
+[sub_resource type="Curve" id="Curve_ghijl"]
+_data = [Vector2(0.57446814, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.42696637), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7q5p3"]
+animation = &"Neutral"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3sw6t"]
+animation = &"Neutral_end"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hd07e"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4a57s"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2roo"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ljrr3"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7q5p3"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3sw6t"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_adt42"]
+states/Neutral/node = SubResource("AnimationNodeAnimation_7q5p3")
+states/Neutral/position = Vector2(321, 197)
+states/Neutral_end/node = SubResource("AnimationNodeAnimation_3sw6t")
+states/Neutral_end/position = Vector2(461, 197)
+states/idle/node = SubResource("AnimationNodeAnimation_hd07e")
+states/idle/position = Vector2(522, 84)
+transitions = ["Start", "Neutral", SubResource("AnimationNodeStateMachineTransition_4a57s"), "idle", "Neutral", SubResource("AnimationNodeStateMachineTransition_e2roo"), "Neutral_end", "idle", SubResource("AnimationNodeStateMachineTransition_ljrr3"), "Neutral", "Neutral_end", SubResource("AnimationNodeStateMachineTransition_7q5p3"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_3sw6t")]
+
+[node name="Slenderman" type="CharacterBody2D" unique_id=1174658088]
+collision_layer = 0
+script = ExtResource("1_7g0fu")
+
+[node name="Taunt" type="Sprite2D" parent="." unique_id=917404229]
+visible = false
+texture = ExtResource("2_x3ljo")
+
+[node name="CollisionChecker" type="Area2D" parent="." unique_id=1461464684]
+collision_layer = 0
+
+[node name="Area2D" type="CollisionShape2D" parent="CollisionChecker" unique_id=2087594262]
+visible = false
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_f50pn")
+
+[node name="LeapRight" type="RayCast2D" parent="." unique_id=724578149]
+visible = false
+position = Vector2(0, -27)
+target_position = Vector2(30, 0)
+
+[node name="LeapLeft" type="RayCast2D" parent="." unique_id=1078054236]
+visible = false
+position = Vector2(0, -27)
+target_position = Vector2(-30, 0)
+
+[node name="LeapRight2" type="RayCast2D" parent="." unique_id=1815585336]
+visible = false
+target_position = Vector2(30, 0)
+
+[node name="LeapLeft2" type="RayCast2D" parent="." unique_id=926273475]
+visible = false
+target_position = Vector2(-30, 0)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1278518551]
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1693145375]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1242723074]
+shape = SubResource("RectangleShape2D_adt42")
+
+[node name="TauntSFX" type="AudioStreamPlayer2D" parent="." unique_id=562863612]
+stream = SubResource("AudioStreamRandomizer_44cfe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=284373439]
+libraries/ = SubResource("AnimationLibrary_44cfe")
+
+[node name="Label" type="Label" parent="." unique_id=382649965]
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 16.0
+offset_bottom = -25.0
+text = "100"
+horizontal_alignment = 1
+
+[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=1913102228]
+top_level = true
+emitting = false
+amount = 120
+lifetime = 1.3
+one_shot = true
+speed_scale = 1.4
+explosiveness = 1.0
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 32.0
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 900.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+linear_accel_min = -450.0
+linear_accel_max = -450.0
+angle_max = 720.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_ghijl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
+scale = Vector2(0.12499999, 0.12499999)
+texture = ExtResource("4_8phh8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1805751032]
+shape = SubResource("RectangleShape2D_adt42")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=601654427]
+tree_root = SubResource("AnimationNodeStateMachine_adt42")
+anim_player = NodePath("../AnimationPlayer")
+
+[connection signal="body_entered" from="CollisionChecker" to="." method="_on_collision_checker_body_entered"]
