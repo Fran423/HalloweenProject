@@ -1,4 +1,5 @@
 This game is being made forthe Terra ysws event held by Hack Club. Understand its early stage and, please, be gentle with your reviews.
+To open the game, extract the .zip file and run Halloween.exe
 
 HOW TO PLAY:
 - Select a character by pressing A (XBox controller) on its name and wait until the battle starts
