@@ -12,9 +12,288 @@ radius = 25.298222
 [sub_resource type="ViewportTexture" id="ViewportTexture_wosjt"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="Animation" id="Animation_i640r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 624)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Credits3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-144, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ve3h0"]
+resource_name = "text"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 624), Vector2(-1296, 624)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Credits3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-144, 0), Vector2(1152, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_036b0"]
+_data = {
+&"RESET": SubResource("Animation_i640r"),
+&"text": SubResource("Animation_ve3h0")
+}
+
+[sub_resource type="Animation" id="Animation_036b0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ready:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Fight:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Fight:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Fight:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ready:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Ready:theme_override_colors/font_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Fight:theme_override_colors/font_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dwbse"]
+resource_name = "Start"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ready:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Fight:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Fight:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.7, 0, 0, 0, 0, 1, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(3, 3.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ready:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.5, 0, 0.7, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 3)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ready:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.5, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Fight:theme_override_colors/font_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3, 3.25, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pkg7o"]
+_data = {
+&"RESET": SubResource("Animation_036b0"),
+&"Start": SubResource("Animation_dwbse")
+}
+
 [node name="World" type="Node2D" unique_id=1381996803]
 process_mode = 3
 script = ExtResource("1_aqk2v")
+
+[node name="Finish" type="Label" parent="." unique_id=1632911389]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 48.0
+offset_right = 1152.0
+offset_bottom = 594.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 350
+text = "FINISH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ready" type="Label" parent="." unique_id=1492593773]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 254
+text = "READY...?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fight" type="Label" parent="." unique_id=861024618]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 362
+text = "FIGHT!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SuddenDeath" type="Label" parent="." unique_id=17499077]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+scale = Vector2(0.8, 1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/paragraph_spacing = -96
+theme_override_font_sizes/font_size = 236
+text = " SUDDEN 
+DEATH"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=421741862]
 transparent_bg = true
@@ -22,7 +301,7 @@ size = Vector2i(1152, 648)
 
 [node name="Area2D" type="Area2D" parent="SubViewport" unique_id=1371484782]
 process_mode = 1
-position = Vector2(896, 360)
+position = Vector2(1024, 256)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_036b0")
@@ -31,11 +310,31 @@ script = ExtResource("2_036b0")
 process_mode = 1
 shape = SubResource("CircleShape2D_d1wgt")
 
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Area2D" unique_id=1517101857]
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_036b0")
+
+[node name="Area2D2" type="Area2D" parent="SubViewport" unique_id=567194384]
+process_mode = 1
+position = Vector2(128, 256)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_036b0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewport/Area2D2" unique_id=1080763341]
+process_mode = 1
+shape = SubResource("CircleShape2D_d1wgt")
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Area2D2" unique_id=1246219788]
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_036b0")
+
 [node name="Stage" parent="SubViewport" unique_id=506613570 instance=ExtResource("3_dwbse")]
 process_mode = 1
 
 [node name="Camera" type="Camera2D" parent="SubViewport" unique_id=1252666454]
 position = Vector2(576, 324)
+limit_enabled = false
 limit_left = -256
 limit_top = -200
 limit_right = 1408
@@ -45,8 +344,8 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("4_pkg7o")
 min_zoom = 0.7
-shake_fade_speed = 200.0
-death_shake = 1000.0
+shake_fade_speed = 10.0
+death_shake = 500.0
 
 [node name="SpawnPoints" type="Node2D" parent="SubViewport" unique_id=1620283226]
 
@@ -60,16 +359,71 @@ position = Vector2(576, 448)
 position = Vector2(832, 448)
 
 [node name="Player4" type="Marker2D" parent="SubViewport/SpawnPoints" unique_id=1148864977]
-position = Vector2(576, 320)
-
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport" unique_id=1517101857]
-position = Vector2(896, 360)
-scale = Vector2(0.39, 0.39)
-texture = ExtResource("5_036b0")
+position = Vector2(576, 255.89)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1136766896]
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = SubResource("ViewportTexture_wosjt")
 
+[node name="Name" type="Label" parent="." unique_id=843477922]
+offset_left = 576.0
+offset_top = 32.0
+offset_right = 1136.0
+offset_bottom = 55.0
+text = "Theme: DISTRUST"
+horizontal_alignment = 2
+
+[node name="Author" type="Label" parent="." unique_id=351596547]
+offset_left = 576.0
+offset_top = 56.0
+offset_right = 1136.0
+offset_bottom = 79.0
+text = "(Danganronpa: Trigger Happy Havoc)"
+horizontal_alignment = 2
+
+[node name="Credits" type="Label" parent="." unique_id=2024453496]
+offset_top = 624.0
+offset_right = 1294.0
+offset_bottom = 647.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Credits2" type="Label" parent="Credits" unique_id=1710124410]
+layout_mode = 0
+offset_left = 1296.0
+offset_right = 2590.0
+offset_bottom = 23.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Credits3" type="Label" parent="." unique_id=142639331]
+offset_left = -144.0
+offset_right = 1150.0002
+offset_bottom = 23.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Credits2" type="Label" parent="Credits3" unique_id=1235055916]
+layout_mode = 0
+offset_left = -1293.0914
+offset_right = 0.90856934
+offset_bottom = 23.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Fade" type="ColorRect" parent="." unique_id=1438754158]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1455202831]
+libraries/ = SubResource("AnimationLibrary_036b0")
+autoplay = &"text"
+
+[node name="StartAnimation" type="AnimationPlayer" parent="." unique_id=1984907208]
+libraries/ = SubResource("AnimationLibrary_pkg7o")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=588739317]
+volume_db = -80.0
+autoplay = true
+
 [connection signal="area_entered" from="SubViewport/Area2D" to="SubViewport/Area2D" method="_on_area_entered"]
+[connection signal="area_entered" from="SubViewport/Area2D2" to="SubViewport/Area2D2" method="_on_area_entered"]
+[connection signal="finished" from="Music" to="." method="song_finished"]

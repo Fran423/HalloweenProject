@@ -3,10 +3,13 @@ extends RigidBody2D
 var damage_mult : float = 0.01
 var launch_mult : float = 0.1
 
+
 func _ready() -> void:
 	await get_tree().create_timer(0.2,false).timeout
 	$Hitbox.set_deferred('monitoring',true)
 func hit(home_run : bool):
+	if home_run:
+		$HitParticles.emitting = true
 	$Bat.direction = linear_velocity.normalized()
 	$Bat.global_position = global_position
 	$Bat.emitting = true
@@ -28,4 +31,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		area.get_parent().hurt(damage_mult*linear_velocity.length(),
 		Vector2(linear_velocity.normalized().x,abs(linear_velocity.normalized().y)-0.5),
 		launch_mult * linear_velocity.length())
-		queue_free()
+		$Hitbox/CollisionShape2D2.set_deferred('disabled',true)
+		$HitParticles.emitting = false
+		$HitParticles.connect("finished",queue_free)

@@ -15,6 +15,13 @@ radius = 8.246211
 _data = [Vector2(0.53723407, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.13483155), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_e4wq3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1460675), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_gxfny"]
+colors = PackedColorArray(0.19215687, 0.56078434, 1, 1, 0, 1, 0, 1)
+
 [node name="Baseball" type="RigidBody2D" unique_id=1392460271]
 top_level = true
 collision_layer = 0
@@ -53,6 +60,25 @@ angle_max = 720.0
 scale_amount_min = 3.0
 scale_amount_max = 5.0
 scale_amount_curve = SubResource("Curve_gxfny")
+
+[node name="HitParticles" type="CPUParticles2D" parent="." unique_id=1788931770]
+emitting = false
+amount = 70
+speed_scale = 2.0
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 7.0
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+angle_max = 720.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_e4wq3")
+color_ramp = SubResource("Gradient_gxfny")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

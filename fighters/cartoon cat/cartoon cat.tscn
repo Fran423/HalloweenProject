@@ -23,7 +23,7 @@ radius = 18.0
 height = 60.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7q5p3"]
-radius = 7.0
+radius = 11.0
 height = 54.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4a57s"]
@@ -143,12 +143,19 @@ states/idle/node = SubResource("AnimationNodeAnimation_hd07e")
 states/idle/position = Vector2(522, 84)
 transitions = ["Start", "Neutral", SubResource("AnimationNodeStateMachineTransition_4a57s"), "idle", "Neutral", SubResource("AnimationNodeStateMachineTransition_e2roo"), "Neutral_end", "idle", SubResource("AnimationNodeStateMachineTransition_ljrr3"), "Neutral", "Neutral_end", SubResource("AnimationNodeStateMachineTransition_7q5p3"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_3sw6t")]
 
-[sub_resource type="Curve" id="Curve_ghijl"]
-_data = [Vector2(0.57446814, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.42696637), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [sub_resource type="Curve" id="Curve_7q5p3"]
 _data = [Vector2(0.6170213, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.3820225), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_4a57s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1460675), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3sw6t"]
+colors = PackedColorArray(1, 1, 0.4392157, 1, 1, 0.5856108, 0.52471584, 1)
+
+[sub_resource type="Curve" id="Curve_3sw6t"]
+_data = [Vector2(0.57446814, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="CartoonCat" type="CharacterBody2D" unique_id=1174658088]
@@ -249,11 +256,11 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_3sw6t")
 
 [node name="UpperHitbox" type="Area2D" parent="." unique_id=844185113]
-position = Vector2(0, -3)
 collision_layer = 0
 collision_mask = 2
 
 [node name="Upper" type="CollisionShape2D" parent="UpperHitbox" unique_id=1786075309]
+visible = false
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_7q5p3")
 
@@ -284,34 +291,6 @@ offset_right = 16.0
 offset_bottom = -25.0
 text = "100"
 horizontal_alignment = 1
-
-[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=1913102228]
-top_level = true
-emitting = false
-amount = 120
-lifetime = 1.3
-one_shot = true
-speed_scale = 1.4
-explosiveness = 1.0
-lifetime_randomness = 0.5
-emission_shape = 1
-emission_sphere_radius = 32.0
-spread = 5.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 400.0
-initial_velocity_max = 900.0
-angular_velocity_min = -360.0
-angular_velocity_max = 360.0
-linear_accel_min = -450.0
-linear_accel_max = -450.0
-angle_max = 720.0
-scale_amount_min = 15.0
-scale_amount_max = 15.0
-scale_amount_curve = SubResource("Curve_ghijl")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
-scale = Vector2(0.12499999, 0.12499999)
-texture = ExtResource("4_3sw6t")
 
 [node name="Charge" type="CPUParticles2D" parent="." unique_id=411662131]
 top_level = true
@@ -351,5 +330,53 @@ angle_max = 720.0
 scale_amount_min = 3.0
 scale_amount_max = 5.0
 scale_amount_curve = SubResource("Curve_7q5p3")
+
+[node name="HitParticles" type="CPUParticles2D" parent="." unique_id=873346192]
+emitting = false
+amount = 70
+lifetime = 1.5
+speed_scale = 2.0
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+radial_accel_min = -52.0
+radial_accel_max = -52.0
+angle_max = 720.0
+scale_amount_min = 15.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_4a57s")
+color_ramp = SubResource("Gradient_3sw6t")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1687711091]
+position = Vector2(4.172325e-07, 0)
+scale = Vector2(0.15624999, 0.296875)
+texture = ExtResource("4_3sw6t")
+
+[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=598364066]
+top_level = true
+emitting = false
+amount = 120
+lifetime = 1.3
+one_shot = true
+speed_scale = 1.4
+explosiveness = 1.0
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 32.0
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 900.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+linear_accel_min = -450.0
+linear_accel_max = -450.0
+angle_max = 720.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_3sw6t")
 
 [connection signal="body_entered" from="CollisionChecker" to="." method="_on_collision_checker_body_entered"]

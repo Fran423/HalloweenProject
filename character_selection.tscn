@@ -2,6 +2,79 @@
 
 [ext_resource type="Script" uid="uid://djxs5uw2tb1ix" path="res://character_selection.gd" id="1_7ylc8"]
 [ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="2_ysev7"]
+[ext_resource type="Texture2D" uid="uid://buhoybkkiplvt" path="res://sprites/mira.png" id="3_i640r"]
+[ext_resource type="AudioStream" uid="uid://djutfnsxftyaa" path="res://Music/DISTRUST.mp3" id="3_ysev7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i640r"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ve3h0"]
+size = Vector2(1152, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwu4o"]
+size = Vector2(48, 744)
+
+[sub_resource type="Animation" id="Animation_i640r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 624)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Credits3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-144, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ve3h0"]
+resource_name = "text"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 624), Vector2(-1296, 624)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Credits3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-144, 0), Vector2(1152, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pwu4o"]
+_data = {
+&"RESET": SubResource("Animation_i640r"),
+&"text": SubResource("Animation_ve3h0")
+}
 
 [node name="CharacterSelection" type="Control" unique_id=926033884]
 layout_mode = 3
@@ -12,6 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ylc8")
 picker_speed = 500.0
+colors = Array[Color]([Color(0, 0, 1, 1), Color(1, 0.19607843, 0.19607843, 1), Color(0.19607843, 1, 0.19607843, 1), Color(1, 1, 0.19607843, 1)])
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=792690117]
 layout_mode = 1
@@ -37,7 +111,8 @@ vertical_alignment = 1
 [node name="Character2" type="RichTextLabel" parent="HBoxContainer" unique_id=1474689410]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Jeff the Killer"
+text = "Jeff 
+the Killer"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -51,7 +126,8 @@ vertical_alignment = 1
 [node name="Character4" type="RichTextLabel" parent="HBoxContainer" unique_id=526821050]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Princess"
+text = "The 
+Princess"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -60,6 +136,7 @@ position = Vector2(576, 320)
 motion_mode = 1
 
 [node name="Sprite2" type="Sprite2D" parent="Player" unique_id=2097483953]
+visible = false
 modulate = Color(1, 0, 1, 1)
 top_level = true
 position = Vector2(576, 320)
@@ -67,9 +144,30 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_ysev7")
 
 [node name="Sprite" type="Sprite2D" parent="Player" unique_id=1886123336]
-position = Vector2(7.6293945e-06, 7.6293945e-06)
-scale = Vector2(0.25000012, 0.24999988)
-texture = ExtResource("2_ysev7")
+texture = ExtResource("3_i640r")
+
+[node name="Line2D" type="Line2D" parent="Player/Sprite" unique_id=1942818268]
+points = PackedVector2Array(0, 1500, 0, -1500)
+width = 4.0
+
+[node name="Afterimage" type="Line2D" parent="Player/Sprite" unique_id=430754666]
+rotation = -0.017453292
+points = PackedVector2Array(0, 1500, 0, -1500)
+width = 8.0
+default_color = Color(1, 1, 1, 0.4745098)
+
+[node name="Line2D2" type="Line2D" parent="Player/Sprite" unique_id=994960]
+points = PackedVector2Array(1500, 0, -1500, 0)
+width = 4.0
+
+[node name="Afterimage2" type="Line2D" parent="Player/Sprite" unique_id=590224983]
+rotation = -0.017453292
+points = PackedVector2Array(1500, 0, -1500, 0)
+width = 8.0
+default_color = Color(1, 1, 1, 0.4745098)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=119876774]
+shape = SubResource("RectangleShape2D_i640r")
 
 [node name="Players" type="Control" parent="." unique_id=331460792]
 anchors_preset = 0
@@ -82,7 +180,6 @@ offset_left = 128.0
 offset_top = 128.0
 offset_right = 256.0
 offset_bottom = 192.0
-text = "character"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -92,7 +189,6 @@ offset_left = 384.0
 offset_top = 128.0
 offset_right = 512.0
 offset_bottom = 192.0
-text = "character"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -102,7 +198,6 @@ offset_left = 640.0
 offset_top = 128.0
 offset_right = 768.0
 offset_bottom = 192.0
-text = "character"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -112,7 +207,6 @@ offset_left = 896.0
 offset_top = 128.0
 offset_right = 1024.0
 offset_bottom = 192.0
-text = "character"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -135,5 +229,89 @@ horizontal_alignment = 1
 [node name="StartTime" type="Timer" parent="." unique_id=158149082]
 wait_time = 2.999
 one_shot = true
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1772673766]
+stream = ExtResource("3_ysev7")
+volume_db = -15.0
+autoplay = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2141102918]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=708207525]
+position = Vector2(576, 672)
+shape = SubResource("RectangleShape2D_ve3h0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=969907548]
+position = Vector2(576, -24)
+shape = SubResource("RectangleShape2D_ve3h0")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1088179317]
+position = Vector2(-24, 324)
+shape = SubResource("RectangleShape2D_pwu4o")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=920274262]
+position = Vector2(1176, 324)
+shape = SubResource("RectangleShape2D_pwu4o")
+
+[node name="Name" type="Label" parent="." unique_id=479878028]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 32.0
+offset_right = 1136.0
+offset_bottom = 55.0
+text = "Theme: DISTRUST"
+horizontal_alignment = 2
+
+[node name="Author" type="Label" parent="." unique_id=240455660]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 56.0
+offset_right = 1136.0
+offset_bottom = 79.0
+text = "(Danganronpa: Trigger Happy Havoc)"
+horizontal_alignment = 2
+
+[node name="Credits" type="Label" parent="." unique_id=147494050]
+z_index = 2
+layout_mode = 0
+offset_top = 624.0
+offset_right = 1294.0
+offset_bottom = 647.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Credits2" type="Label" parent="Credits" unique_id=1506277625]
+z_index = 2
+layout_mode = 0
+offset_left = 1296.0
+offset_right = 2590.0
+offset_bottom = 23.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Credits3" type="Label" parent="." unique_id=980435254]
+z_index = 2
+layout_mode = 0
+offset_left = -144.0
+offset_right = 1150.1859
+offset_bottom = 23.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Credits2" type="Label" parent="Credits3" unique_id=1383083763]
+z_index = 2
+layout_mode = 0
+offset_left = -1296.0
+offset_right = -2.0
+offset_bottom = 23.0
+text = "SLASHER NIGHT.  CREATED BY: FRAN RIPIA.  PROJECT IS UNFINISHED, AND ONLY A VERY TECHNICAL DEMO.  PROJECT MADE FOR THE YSWS EVENT TERRA BY HACK CLUB.  "
+
+[node name="Fade" type="ColorRect" parent="." unique_id=616428467]
+z_index = 2
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=983960873]
+libraries/ = SubResource("AnimationLibrary_pwu4o")
+autoplay = &"text"
 
 [connection signal="timeout" from="StartTime" to="." method="_on_start_time_timeout"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bxf57o4t7t08h"
+path="res://.godot/imported/Won't you hear my Symphony.mp3-91ac6bc2211c542f26222ebe397ac50d.mp3str"
+
+[deps]
+
+source_file="res://Music/Won't you hear my Symphony.mp3"
+dest_files=["res://.godot/imported/Won't you hear my Symphony.mp3-91ac6bc2211c542f26222ebe397ac50d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

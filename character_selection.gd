@@ -4,8 +4,12 @@ var controllers : Array
 var pickers : Array[Dictionary] = []
 @export var picker_speed : float
 var picker_template : CharacterBody2D
+@onready var music_node : AudioStreamPlayer = $Music
+@export var colors : Array[Color]
 
 func _ready() -> void:
+	await get_tree().create_timer(4,false).timeout
+	create_tween().tween_property($Fade,'modulate:a',0,0.5)
 	Input.joy_connection_changed.connect(device_connected)
 	picker_template = $Player.duplicate()
 	$Player.queue_free()
@@ -21,14 +25,22 @@ func _ready() -> void:
 		var picker_data = {'cursor' = picker,'controller_id' = controllers[i],'player_number' = i+1,'selection' = null,'marked' = false}
 		add_child(picker)
 		pickers.append(picker_data)
+		picker_data['cursor'].modulate = colors[i]
 		
 func _process(delta: float) -> void:
 	if !$StartTime.is_stopped():
+		if $StartTime.time_left < 3:
+			$Music.pitch_scale = 4-$StartTime.time_left
 		$Label.text = str(int($StartTime.time_left)+1)
-		
+	elif $Music.pitch_scale != 1:
+		$Music.pitch_scale = 1
 	for i in pickers:
 		i['cursor'].velocity.x = Input.get_joy_axis(i['controller_id'],JOY_AXIS_LEFT_X)*picker_speed
 		i['cursor'].velocity.y = Input.get_joy_axis(i['controller_id'],JOY_AXIS_LEFT_Y)*picker_speed
+		if i['cursor'].velocity.length() > 10:
+			i['cursor'].get_node('Sprite').rotation += i['cursor'].velocity.length()*delta/200
+		else:
+			i['cursor'].get_node('Sprite').rotation += delta*0.2
 		i['cursor'].move_and_slide()
 		if i['marked'] == false:
 			i['cursor'].get_node('Sprite2').global_position = i['cursor'].global_position
@@ -71,7 +83,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		for picker in pickers:
 			if picker['controller_id'] == event.device:
-				picker['marked'] = !picker['marked']
+				if !picker['marked']:
+					if int(picker['cursor'].global_position.x) in range(305, 846) and int(picker['cursor'].global_position.y) in range(228, 228+$HBoxContainer.size.y):
+						picker['marked'] = true
+						picker['cursor'].get_node('Sprite2').show()
+				else: 
+					picker['marked'] = false
+					picker['cursor'].get_node('Sprite2').hide()
 				start_button(marks_check())
 				break
 
@@ -91,6 +109,7 @@ func device_connected(device, connected):
 				picker_data['player_number'] = i+1
 				break
 		pickers.append(picker_data)
+		create_tween().tween_property(picker_data['cursor'],'modulate',colors[picker_data['player_number']-1],0.5)
 		controllers.append(device)
 		
 		print('detected new joypad:',device,' Total:',controllers)

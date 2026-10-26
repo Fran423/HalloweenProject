@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cysgacforf4p5"]
+
+[ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="1_74oga"]
+[ext_resource type="Script" uid="uid://b4ychx2v765lt" path="res://fighters/slenderman/note.gd" id="1_p0555"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p0555"]
+radius = 40.0
+
+[sub_resource type="Curve" id="Curve_p0555"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18085107, 1), 0.0, 0.0, 0, 0, Vector2(0.856383, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_h41d0"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Note" type="CharacterBody2D" unique_id=1956261829]
+show_behind_parent = true
+top_level = true
+script = ExtResource("1_p0555")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=461713370]
+position = Vector2(-1.9073486e-06, -1.9073486e-06)
+scale = Vector2(0.124999985, 0.124999985)
+texture = ExtResource("1_74oga")
+
+[node name="Timer" type="Timer" parent="." unique_id=1619958728]
+wait_time = 5.0
+one_shot = true
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=493142990]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=269255461]
+visible = false
+shape = SubResource("CircleShape2D_p0555")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=469265397]
+amount = 50
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 38.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -500.0
+angular_velocity_max = 500.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 1.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_p0555")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="." unique_id=932505181]
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+lifetime_randomness = 0.3
+emission_shape = 1
+emission_sphere_radius = 38.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -500.0
+angular_velocity_max = 500.0
+radial_accel_min = 500.0
+radial_accel_max = 500.0
+radial_accel_curve = SubResource("Curve_h41d0")
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_p0555")

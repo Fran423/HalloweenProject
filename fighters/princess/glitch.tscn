@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://c4sg4uwjj4tkk"]
+
+[ext_resource type="Script" uid="uid://ck524n5s7bevq" path="res://fighters/princess/glitch.gd" id="1_xg1lv"]
+
+[sub_resource type="Gradient" id="Gradient_n06sy"]
+colors = PackedColorArray(0.23921569, 0, 0.25882354, 1, 0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_xg1lv"]
+_limits = [-50.0, 50.0, 0.0, 1.0]
+_data = [Vector2(0, 5.056183), 0.0, 0.0, 0, 0, Vector2(1, -5.056175), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_n06sy"]
+_data = [Vector2(0, 0.875), 0.0, 0.0, 0, 0, Vector2(0.125, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.75), 0.0, 0.0, 0, 0, Vector2(0.375, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.625), 0.0, 0.0, 0, 0, Vector2(0.625, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.5), 0.0, 0.0, 0, 0, Vector2(0.875, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 9
+metadata/_snap_enabled = true
+metadata/_snap_count = 8
+
+[node name="Node2D" type="Node2D" unique_id=1067122117]
+script = ExtResource("1_xg1lv")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1811308004]
+amount = 15
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(15, 30)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color_initial_ramp = SubResource("Gradient_n06sy")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="." unique_id=1141051925]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.4
+emission_shape = 3
+emission_rect_extents = Vector2(25, 50)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+radial_accel_min = 300.0
+radial_accel_max = 300.0
+radial_accel_curve = SubResource("Curve_xg1lv")
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_n06sy")
+color_initial_ramp = SubResource("Gradient_n06sy")
+
+[node name="Timer" type="Timer" parent="." unique_id=934413898]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

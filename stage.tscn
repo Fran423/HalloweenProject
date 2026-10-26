@@ -28,6 +28,16 @@ position = Vector2(576, 756)
 scale = Vector2(6.125, 4.1875)
 texture = ExtResource("1_6eo5e")
 
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1014226196]
+position = Vector2(932, 520)
+scale = Vector2(0.5625, 0.49999994)
+texture = ExtResource("1_6eo5e")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=816102028]
+position = Vector2(219.99998, 520)
+scale = Vector2(0.56250006, 0.49999994)
+texture = ExtResource("1_6eo5e")
+
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1137014000]
 position = Vector2(576, 320)
 scale = Vector2(2.8750002, 0.12499988)

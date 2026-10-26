@@ -22,6 +22,7 @@ extends CharacterBody2D
 
 var jumps_left : int = 0
 var player_num : int
+var has_started : bool = false
 var controller : int
 var knocked_time : float = 0
 var freefall : bool = false
@@ -29,7 +30,7 @@ var freefall : bool = false
 var taunt_time_left : float = 0
 var cooldown_time : float = 0
 var move_weight : float = 0
-var can_move : bool = true
+var can_move : bool = false
 var coyote : float = 0
 var vel : Vector2
 var life : float
@@ -78,12 +79,17 @@ func launch(dir: Vector2, strength: float):
 	dir = dir.normalized()
 	var launch_speed = strength * 10.0
 	velocity = dir * launch_speed
-	knocked_time = strength * remap(life,0,max_life,0.02,0.0005)
+	knocked_time = strength * remap(life,0,max_life,0.02,0.0005) * 0.6
 	reboot()
+	$HitParticles.emitting = true
+	while knocked_time > 0:
+		await get_tree().process_frame
+	$HitParticles.emitting = false
 
 func hurt(damage:float, dir:Vector2, strength:float):
 	hit_taken.emit(damage, dir, strength)
-	launch(dir,strength)
+	if strength > 0:
+		launch(dir,strength)
 	life -= damage
 	$Label.text = str(life)
 	if life <= 0:
@@ -91,6 +97,7 @@ func hurt(damage:float, dir:Vector2, strength:float):
 
 func die(dir : Vector2 = Vector2.ZERO):
 	dead.emit(self)
+	$HitParticles.emitting = false
 	$Hurtbox.set_deferred('monitorable',false)
 	$DeathParticles.direction = dir
 	$DeathParticles.global_position = global_position
@@ -129,7 +136,7 @@ func manage_movement(delta):
 	if knocked_time <= 0 and taunt_time_left <= 0:
 		leap()
 		var dir : float = 0
-		if abs(Input.get_joy_axis(Main.controllers[player_num-1],JOY_AXIS_LEFT_X)) > dead_zone:
+		if abs(Input.get_joy_axis(Main.controllers[player_num-1],JOY_AXIS_LEFT_X)) > dead_zone and has_started:
 			dir = Input.get_joy_axis(Main.controllers[player_num-1],JOY_AXIS_LEFT_X)
 		if !is_on_floor():
 			if (velocity + get_gravity()*delta).y < max_fall_speed:
@@ -147,7 +154,7 @@ func manage_movement(delta):
 				velocity += get_gravity()*delta
 
 func _input(event: InputEvent) -> void:
-	if event.device == Main.controllers[player_num-1]:
+	if event.device == controller and has_started:
 		if knocked_time <= 0 and taunt_time_left <= 0 and life > 0:
 			if event.is_action_pressed("Jump"):
 				jump()
@@ -181,5 +188,5 @@ func jump():
 			await get_tree().physics_frame
 
 func _on_collision_checker_body_entered(body: Node2D) -> void:
-	if body.is_in_group('map'):
+	if body.is_in_group('map') and velocity.y >= 0:
 		reboot()

@@ -52,6 +52,7 @@ var charge_time_left : float = 0
 
 var jumps_left : int = 0
 var player_num : int
+var has_started : bool = false
 var controller : int
 var knocked_time : float = 0
 var freefall : bool = false
@@ -97,28 +98,33 @@ func check_knockback_bounce():
 		if abs(normal.x) > abs(normal.y):
 			velocity.x = -vel.x * 0.5
 			
-
+			
 		# Suelo o techo: choque vertical
 		else:
 			velocity.y = -vel.y * 0.5
 			velocity.x *= 0.8
-		
-
+			
+			
 func launch(dir: Vector2, strength: float):
 	dir = dir.normalized()
 	var launch_speed = strength * 10.0
 	velocity = dir * launch_speed
-	knocked_time = strength * remap(life,0,max_life,0.02,0.0005)
+	knocked_time = strength * remap(life,0,max_life,0.02,0.0005) * 0.6
 	if charge_time_left <= 0:
 		reboot()
-
+	$HitParticles.emitting = true
+	while knocked_time > 0:
+		await get_tree().process_frame
+	$HitParticles.emitting = false
+			
 func hurt(damage:float, dir:Vector2, strength:float):
 	if charge_time_left <= 0:
 		reboot()
 	hit_taken.emit(damage, dir, strength)
 	if strength > weight:
 		weight = 0
-		launch(dir,strength)
+		if strength > 0:
+			launch(dir,strength)
 		can_move = true
 	life -= damage
 	$Label.text = str(life)
@@ -127,6 +133,7 @@ func hurt(damage:float, dir:Vector2, strength:float):
 
 func die(dir : Vector2 = Vector2.ZERO):
 	dead.emit(self)
+	$HitParticles.emitting = false
 	$Hurtbox.set_deferred('monitorable',false)
 	$DeathParticles.direction = dir
 	$DeathParticles.global_position = global_position
@@ -167,7 +174,7 @@ func manage_movement(delta):
 	if knocked_time <= 0 and taunt_time_left <= 0:
 		leap()
 		var dir : float = 0
-		if abs(Input.get_joy_axis(controller,JOY_AXIS_LEFT_X)) > dead_zone and can_move:
+		if abs(Input.get_joy_axis(controller,JOY_AXIS_LEFT_X)) > dead_zone and can_move and has_started:
 			dir = sign(Input.get_joy_axis(controller,JOY_AXIS_LEFT_X))
 		if !is_on_floor():
 			if (velocity + get_gravity()*delta).y < max_fall_speed:
@@ -187,13 +194,13 @@ func manage_movement(delta):
 				velocity += get_gravity()*delta
 
 func _input(event: InputEvent) -> void:
-	if knocked_time <= 0 and taunt_time_left <= 0 and life > 0:
-		if event.is_action_pressed("Jump") and event.device == controller and !freefall and helicopter_time_left <= 0:
+	if knocked_time <= 0 and event.device == controller and taunt_time_left <= 0 and life > 0 and has_started:
+		if event.is_action_pressed("Jump") and !freefall and helicopter_time_left <= 0:
 			jump()
 		if cooldown_time <= 0 and can_move and helicopter_time_left <= 0 and charge_time_left <= 0:
-			if event.is_action_pressed('Taunt') and event.device == controller:
+			if event.is_action_pressed('Taunt'):
 				taunt()
-			if event.is_action_pressed("Special") and event.device == controller and !freefall and helicopter_time_left <= 0 and charge_time_left <= 0:
+			if event.is_action_pressed("Special") and !freefall and helicopter_time_left <= 0 and charge_time_left <= 0:
 				special_attack(event)
 
 func special_attack(event: InputEvent):
@@ -325,7 +332,7 @@ func jump():
 			await get_tree().physics_frame
 
 func _on_collision_checker_body_entered(body: Node2D) -> void:
-	if body.is_in_group('map') and charge_time_left <= 0:
+	if body.is_in_group('map') and charge_time_left <= 0 and velocity.y >= 0:
 		reboot()
 
 func emit_particles(node,pos):

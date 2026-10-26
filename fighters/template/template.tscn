@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://qbc78itl6n37"]
+[gd_scene format=3 uid="uid://c0m1qb1p0ax6u"]
 
-[ext_resource type="Script" uid="uid://blegmw2pgff8v" path="res://fighters/template/template.gd" id="1_gxcbt"]
+[ext_resource type="Script" uid="uid://3pf1g6c280xm" path="res://fighters/template/template.gd" id="1_adt42"]
 [ext_resource type="Texture2D" uid="uid://cyftncparj6jf" path="res://taunt.png" id="2_lg4l6"]
 [ext_resource type="AudioStream" uid="uid://cwbpgiwlj10oh" path="res://fighters/sfx_taunt.mp3" id="3_4i8d6"]
 [ext_resource type="Texture2D" uid="uid://x5yof1qr3dx5" path="res://icon.svg" id="4_lg4l6"]
@@ -23,10 +23,6 @@ length = 0.001
 _data = {
 &"RESET": SubResource("Animation_ghijl")
 }
-
-[sub_resource type="Curve" id="Curve_ghijl"]
-_data = [Vector2(0.57446814, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.42696637), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7q5p3"]
 animation = &"Neutral"
@@ -60,9 +56,20 @@ states/idle/node = SubResource("AnimationNodeAnimation_hd07e")
 states/idle/position = Vector2(522, 84)
 transitions = ["Start", "Neutral", SubResource("AnimationNodeStateMachineTransition_4a57s"), "idle", "Neutral", SubResource("AnimationNodeStateMachineTransition_e2roo"), "Neutral_end", "idle", SubResource("AnimationNodeStateMachineTransition_ljrr3"), "Neutral", "Neutral_end", SubResource("AnimationNodeStateMachineTransition_7q5p3"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_3sw6t")]
 
+[sub_resource type="Curve" id="Curve_adt42"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1460675), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_px4fu"]
+colors = PackedColorArray(1, 1, 0.4392157, 1, 1, 0.5856108, 0.52471584, 1)
+
+[sub_resource type="Curve" id="Curve_px4fu"]
+_data = [Vector2(0.57446814, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1174658088]
 collision_layer = 0
-script = ExtResource("1_gxcbt")
+script = ExtResource("1_adt42")
 jump_force = 400.0
 jump_max_height = 17.0
 num_of_extra_jumps = 1
@@ -130,7 +137,38 @@ offset_bottom = -25.0
 text = "100"
 horizontal_alignment = 1
 
-[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=1913102228]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
+position = Vector2(4.172325e-07, 0)
+scale = Vector2(0.15624999, 0.296875)
+texture = ExtResource("4_lg4l6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1805751032]
+shape = SubResource("RectangleShape2D_adt42")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=601654427]
+tree_root = SubResource("AnimationNodeStateMachine_adt42")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="HitParticles" type="CPUParticles2D" parent="." unique_id=847186657]
+emitting = false
+amount = 70
+lifetime = 1.5
+speed_scale = 2.0
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+radial_accel_min = -52.0
+radial_accel_max = -52.0
+angle_max = 720.0
+scale_amount_min = 15.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_adt42")
+color_ramp = SubResource("Gradient_px4fu")
+
+[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=138956189]
 top_level = true
 emitting = false
 amount = 120
@@ -152,17 +190,6 @@ linear_accel_max = -450.0
 angle_max = 720.0
 scale_amount_min = 15.0
 scale_amount_max = 15.0
-scale_amount_curve = SubResource("Curve_ghijl")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1748681178]
-scale = Vector2(0.12499999, 0.12499999)
-texture = ExtResource("4_lg4l6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1805751032]
-shape = SubResource("RectangleShape2D_adt42")
-
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=601654427]
-tree_root = SubResource("AnimationNodeStateMachine_adt42")
-anim_player = NodePath("../AnimationPlayer")
+scale_amount_curve = SubResource("Curve_px4fu")
 
 [connection signal="body_entered" from="CollisionChecker" to="." method="_on_collision_checker_body_entered"]
